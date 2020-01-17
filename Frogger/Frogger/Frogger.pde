@@ -1,8 +1,8 @@
 int frogX=400;
 int frogY=575;
 int frogJumpDistance=25;
-Car car2=new Car( 450, 200, 100, 10);
-Car car3=new Car(750, 400, 120, 10);
+Car car2=new Car( 450, 150, 100, 10);
+Car car3=new Car(750, 470, 120, 10);
  Car car=new Car(250,300,80,10);
 void setup() {
   size(800, 600);
@@ -19,6 +19,18 @@ car2.moveCarLeft();
 car2.display();
 car3.moveCarRight();
 car3.display();
+if(intersects(car)){
+  frogX=400;
+  frogY=575;
+}
+if(intersects(car2)){
+  frogY=400;
+  frogY=575;
+}
+if(intersects(car3)){
+  frogX=400;
+  frogY=575;
+}
 }
 void keyPressed()
 {
@@ -60,6 +72,16 @@ boolean frogInBounds() {
     return false;
   }
 }
+ boolean intersects(Car car) {
+ if ((frogY > car.getY() && frogY < car.getY()+50) &&
+                (frogX > car.getX() && frogX < car.getX()+car.getSize())) {
+   return true;
+  }
+ else  {
+  return false;
+ }
+}
+
 public class Car {
   int carX;
   int carY;
@@ -91,4 +113,14 @@ public class Car {
     this.carSize=carSize;
     this.carSpeed=carSpeed;
   }
+ int getX(){
+    return carX;
+  }
+ int getY(){
+   return carY; 
+  }
+int getSize(){
+  return carSize;
+  }
+  
 }
