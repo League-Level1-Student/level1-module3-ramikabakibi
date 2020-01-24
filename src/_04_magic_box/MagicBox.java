@@ -12,14 +12,17 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 public class MagicBox extends JPanel implements Runnable, MouseListener {
-
+	MediaPalace palace=new MediaPalace();
+	JFrame frame1 = new JFrame();
 	/*
 	 * We are going to hide secrets within the magic box. 
 	 * When the user clicks on a secret place, stuff will happen.
@@ -50,10 +53,13 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	private void createUI() {
 		JFrame frame = new JFrame("The Magic Box contains many secrets...");
 		frame.add(this);
+		frame.addMouseListener(this);
 		setPreferredSize(new Dimension(backgroundImage.getWidth(), backgroundImage.getHeight()));
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
+		
 	}
 
 	private void loadBackgroundImage() throws Exception {
@@ -73,7 +79,27 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		int clickx=e.getX();
+		int clicky=e.getY();
+		System.out.println(clickx);
+		System.out.println(clicky);
+		if(clickx>280&&clickx<295&&clicky>280&&clicky<295) {
+		try {
+			JLabel label=palace.loadImageFromTheInternet("https://d3j2s6hdd6a7rg.cloudfront.net/v2/uploads/media/default/0002/02/thumb_101167_default_news_size_5.jpeg");
+			frame1.add(label);
+			frame1.setVisible(true);
+			frame1.pack();
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		}
+		else if(clickx>100&&clickx<150&&clicky>200&&clicky<240) {
+		palace.playMusicOnComputer("hi.mp3");
+		}
+		else if(clickx>155&&clickx<200&&clicky>260&&clicky<300) {
+			palace.speak("Mr.D likes seaweed. It's an unhealthy obsession");
+		}
 	}
 
 	@Override
